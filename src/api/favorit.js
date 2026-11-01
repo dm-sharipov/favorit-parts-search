@@ -18,16 +18,18 @@ async function fetchGoods(params) {
 		);
 	}
 
+	const data = await response.json().catch(() => null);
+
+	if (data?.error) {
+		throw new ApiError(translateApiError(data.error));
+	}
+
 	if (!response.ok) {
 		throw new ApiError(`Сервер ответил ошибкой ${response.status}`);
 	}
 
-	const data = await response.json().catch(() => {
+	if (!data) {
 		throw new ApiError("Сервер вернул некорректный ответ");
-	});
-
-	if (data.error) {
-		throw new ApiError(translateApiError(data.error));
 	}
 
 	return Array.isArray(data.goods) ? data.goods : [];
