@@ -1,0 +1,36 @@
+:root {
+	--bs-primary: #035aa4;
+	--bs-primary-rgb: 3, 90, 164;
+	--bs-body-color: #202f45;
+	--bs-secondary-color: #9097a2;
+	--bs-border-color: #cddeed;
+	--bs-body-font-family: Roboto, system-ui, sans-serif;
+}
+
+html {
+	scrollbar-gutter: stable;
+}
+
+.app {
+	max-width: 960px;
+}
+
+.btn-outline-primary {
+	--bs-btn-color: var(--bs-primary);
+	--bs-btn-border-color: var(--bs-primary);
+	--bs-btn-hover-bg: var(--bs-primary);
+	--bs-btn-hover-border-color: var(--bs-primary);
+	--bs-btn-active-bg: var(--bs-primary);
+	--bs-btn-active-border-color: var(--bs-primary);
+	--bs-btn-focus-shadow-rgb: var(--bs-primary-rgb);
+}
+
+.table-primary {
+	--bs-table-bg: #eff1fa;
+	--bs-table-border-color: var(--bs-border-color);
+}
+
+.form-control:focus {
+	border-color: var(--bs-primary);
+	box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+}
