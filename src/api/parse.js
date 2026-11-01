@@ -29,39 +29,28 @@ export function getBrands(goods) {
 	return [...brands.values()];
 }
 
-function toOffers(item, isRequested) {
-	const base = {
-		brand: item.brand,
-		number: item.number,
-		name: item.name,
-		isRequested,
-	};
-
+function toOffer(item, isRequested) {
 	const warehouses = (item.warehouses ?? []).filter(
 		(warehouse) => warehouse.stock > 0,
 	);
 
-	if (warehouses.length === 0) {
-		return [
-			{
-				...base,
-				id: item.goodsID,
-				price: null,
-				stock: 0,
-				warehouse: null,
-				shipmentDate: null,
-			},
-		];
-	}
+	const prices = warehouses.map((warehouse) => warehouse.price);
 
-	return warehouses.map((warehouse) => ({
-		...base,
-		id: `${item.goodsID}-${warehouse.id}`,
-		price: warehouse.price,
-		stock: warehouse.stock,
-		warehouse: warehouse.code || null,
-		shipmentDate: warehouse.shipmentDate || null,
-	}));
+	const shipmentDates = warehouses
+		.map((warehouse) => warehouse.shipmentDate)
+		.filter(Boolean)
+		.sort();
+
+	return {
+		id: item.goodsID,
+		brand: item.brand,
+		number: item.number,
+		name: item.name,
+		isRequested,
+		price: prices.length > 0 ? Math.min(...prices) : null,
+		stock: warehouses.reduce((sum, warehouse) => sum + warehouse.stock, 0),
+		shipmentDate: shipmentDates[0] ?? null,
+	};
 }
 
 function compareOffers(a, b) {
@@ -84,10 +73,10 @@ export function getOffers(goods) {
 	return goods
 		.filter(isFound)
 		.flatMap((item) => [
-			...toOffers(item, true),
+			toOffer(item, true),
 			...(item.analogues ?? [])
 				.filter(isFound)
-				.flatMap((analogue) => toOffers(analogue, false)),
+				.map((analogue) => toOffer(analogue, false)),
 		])
 		.sort(compareOffers);
 }
