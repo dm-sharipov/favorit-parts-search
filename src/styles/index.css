@@ -1,3 +1,5 @@
+@import "bootstrap/dist/css/bootstrap.min.css" layer(bootstrap);
+
 :root {
 	--bs-primary: #035aa4;
 	--bs-primary-rgb: 3, 90, 164;
@@ -7,11 +9,11 @@
 	--bs-body-font-family: Roboto, system-ui, sans-serif;
 }
 
-html {
+.page {
 	scrollbar-gutter: stable;
 }
 
-.app {
+.page__main {
 	max-width: 960px;
 }
 
@@ -33,4 +35,56 @@ html {
 .form-control:focus {
 	border-color: var(--bs-primary);
 	box-shadow: 0 0 0 0.25rem rgba(var(--bs-primary-rgb), 0.25);
+}
+
+@media (width < 768px) {
+	.offers-table__head {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+	}
+
+	.offers-table,
+	.offers-table__body,
+	.offers-table__row,
+	.offers-table__cell {
+		display: block;
+	}
+
+	.offers-table__row {
+		border: var(--bs-border-width) solid var(--bs-border-color);
+		border-radius: var(--bs-border-radius-lg);
+		overflow: hidden;
+	}
+
+	.offers-table__row + .offers-table__row {
+		margin-top: 0.75rem;
+	}
+
+	.offers-table__cell {
+		padding: 0.25rem 1rem;
+		border-bottom: 0;
+	}
+
+	.offers-table__cell:first-child {
+		padding-top: 0.75rem;
+	}
+
+	.offers-table__cell:last-child {
+		padding-bottom: 0.75rem;
+	}
+
+	.offers-table__cell--labeled {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+	}
+
+	.offers-table__cell--labeled::before {
+		content: attr(data-label);
+		color: var(--bs-secondary-color);
+	}
 }

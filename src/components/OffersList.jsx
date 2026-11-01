@@ -10,75 +10,80 @@ export function OffersList({ items }) {
 	const hiddenCount = items.length - visibleItems.length;
 
 	return (
-		<section>
-			<h2 className="h5 mb-3">Аналоги и предложения</h2>
+		<section className="offers">
+			<h2 className="offers__title h5 mb-3">Аналоги и предложения</h2>
 
 			<div className="table-responsive">
-				<table className="table table-hover align-middle">
-					<thead>
+				<table className="offers-table table table-hover align-middle">
+					<thead className="offers-table__head">
 						<tr>
-							<th scope="col">Производитель</th>
+							<th className="offers-table__heading" scope="col">Производитель</th>
 
-							<th scope="col">Название</th>
+							<th className="offers-table__heading" scope="col">Название</th>
 
-							<th className="text-end text-nowrap" scope="col">
+							<th className="offers-table__heading text-end text-nowrap" scope="col">
 								Лучшая цена
 							</th>
 
-							<th className="text-end" scope="col">
+							<th className="offers-table__heading text-end" scope="col">
 								Остаток
 							</th>
 
-							<th scope="col">Отгрузка</th>
+							<th className="offers-table__heading" scope="col">Отгрузка</th>
 						</tr>
 					</thead>
 
-					<tbody>
+					<tbody className="offers-table__body">
 						{visibleItems.map((offer) => (
 							<tr
-								className={
-									offer.isRequested
-										? "table-primary"
-										: undefined
-								}
+								className={`offers-table__row${offer.isRequested ? " table-primary" : ""}`}
 								key={offer.id}
 							>
-								<td>
-									<div className="fw-semibold">
+								<td className="offers-table__cell">
+									<div className="offers-table__brand fw-semibold">
 										{offer.brand}
 									</div>
 
-									<div className="small text-body-secondary">
+									<div className="offers-table__number small text-body-secondary">
 										{offer.number}
 									</div>
 								</td>
 
-								<td>
+								<td className="offers-table__cell">
 									{offer.name}
 									{offer.isRequested && (
-										<span className="badge text-bg-primary ms-2">
+										<span className="offers-table__badge badge text-bg-primary ms-2">
 											Искомая
 										</span>
 									)}
 								</td>
 
-								<td className="text-end text-nowrap">
+								<td
+									className="offers-table__cell offers-table__cell--labeled text-end text-nowrap"
+									data-label="Лучшая цена"
+								>
 									{offer.price === null
 										? "—"
 										: formatPrice(offer.price)}
 								</td>
 
-								<td className="text-end text-nowrap">
+								<td
+									className="offers-table__cell offers-table__cell--labeled text-end text-nowrap"
+									data-label="Остаток"
+								>
 									{offer.stock > 0 ? (
 										`${offer.stock} шт.`
 									) : (
-										<span className="text-body-secondary">
+										<span className="offers-table__out-of-stock text-body-secondary">
 											Нет в наличии
 										</span>
 									)}
 								</td>
 
-								<td className="text-nowrap">
+								<td
+									className="offers-table__cell offers-table__cell--labeled text-nowrap"
+									data-label="Отгрузка"
+								>
 									{offer.shipmentDate
 										? formatDate(offer.shipmentDate)
 										: "—"}
@@ -90,9 +95,9 @@ export function OffersList({ items }) {
 			</div>
 
 			{hiddenCount > 0 && (
-				<div className="d-flex align-items-center gap-3">
+				<div className="offers__more d-flex align-items-center gap-3">
 					<button
-						className="btn btn-outline-primary"
+						className="offers__more-button btn btn-outline-primary"
 						type="button"
 						onClick={() =>
 							setVisibleCount(visibleCount + PAGE_SIZE)
@@ -101,7 +106,7 @@ export function OffersList({ items }) {
 						Показать ещё
 					</button>
 
-					<span className="text-body-secondary">
+					<span className="offers__counter text-body-secondary">
 						Показано {visibleItems.length} из {items.length}
 					</span>
 				</div>

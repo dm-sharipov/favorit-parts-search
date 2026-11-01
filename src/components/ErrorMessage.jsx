@@ -1,13 +1,13 @@
 export function ErrorMessage({ message, onRetry }) {
 	return (
 		<div
-			className="alert alert-danger d-flex align-items-center justify-content-between gap-3"
+			className="error-message alert alert-danger d-flex align-items-center justify-content-between gap-3"
 			role="alert"
 		>
-			<span>{message}</span>
+			<span className="error-message__text">{message}</span>
 
 			<button
-				className="btn btn-sm btn-outline-danger"
+				className="error-message__retry btn btn-sm btn-outline-danger"
 				type="button"
 				onClick={onRetry}
 			>
