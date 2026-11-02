@@ -38,8 +38,11 @@ export function SearchForm() {
 	};
 
 	return (
-		<form className="search-form mb-5" onSubmit={handleSubmit} role="search">
-			<label className="search-form__label form-label" htmlFor="part-number">
+		<form className="search-form" onSubmit={handleSubmit} role="search">
+			<label
+				className="search-form__label form-label"
+				htmlFor="part-number"
+			>
 				Артикул детали
 			</label>
 

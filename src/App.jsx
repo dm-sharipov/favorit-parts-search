@@ -4,8 +4,8 @@ import { SearchForm } from "./components/SearchForm";
 
 export function App() {
 	return (
-		<main className="page__main container py-5">
-			<h1 className="page__title h3 mb-4">Подбор автозапчастей</h1>
+		<main className="page__main container">
+			<h1 className="page__title">Подбор автозапчастей</h1>
 
 			<SearchForm />
 

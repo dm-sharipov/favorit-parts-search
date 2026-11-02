@@ -11,25 +11,37 @@ export function OffersList({ items }) {
 
 	return (
 		<section className="offers">
-			<h2 className="offers__title h5 mb-3">Аналоги и предложения</h2>
+			<h2 className="offers__title">Аналоги и предложения</h2>
 
 			<div className="table-responsive">
-				<table className="offers-table table table-hover align-middle">
+				<table className="offers-table table table-hover">
 					<thead className="offers-table__head">
 						<tr>
-							<th className="offers-table__heading" scope="col">Производитель</th>
+							<th className="offers-table__heading" scope="col">
+								Производитель
+							</th>
 
-							<th className="offers-table__heading" scope="col">Название</th>
+							<th className="offers-table__heading" scope="col">
+								Название
+							</th>
 
-							<th className="offers-table__heading text-end text-nowrap" scope="col">
+							<th
+								className="offers-table__heading offers-table__heading--numeric"
+								scope="col"
+							>
 								Лучшая цена
 							</th>
 
-							<th className="offers-table__heading text-end" scope="col">
+							<th
+								className="offers-table__heading offers-table__heading--numeric"
+								scope="col"
+							>
 								Остаток
 							</th>
 
-							<th className="offers-table__heading" scope="col">Отгрузка</th>
+							<th className="offers-table__heading" scope="col">
+								Отгрузка
+							</th>
 						</tr>
 					</thead>
 
@@ -40,11 +52,11 @@ export function OffersList({ items }) {
 								key={offer.id}
 							>
 								<td className="offers-table__cell">
-									<div className="offers-table__brand fw-semibold">
+									<div className="offers-table__brand">
 										{offer.brand}
 									</div>
 
-									<div className="offers-table__number small text-body-secondary">
+									<div className="offers-table__number">
 										{offer.number}
 									</div>
 								</td>
@@ -52,14 +64,14 @@ export function OffersList({ items }) {
 								<td className="offers-table__cell">
 									{offer.name}
 									{offer.isRequested && (
-										<span className="offers-table__badge badge text-bg-primary ms-2">
+										<span className="offers-table__badge badge">
 											Искомая
 										</span>
 									)}
 								</td>
 
 								<td
-									className="offers-table__cell offers-table__cell--labeled text-end text-nowrap"
+									className="offers-table__cell offers-table__cell--labeled offers-table__cell--numeric"
 									data-label="Лучшая цена"
 								>
 									{offer.price === null
@@ -68,25 +80,29 @@ export function OffersList({ items }) {
 								</td>
 
 								<td
-									className="offers-table__cell offers-table__cell--labeled text-end text-nowrap"
+									className="offers-table__cell offers-table__cell--labeled offers-table__cell--numeric"
 									data-label="Остаток"
 								>
 									{offer.stock > 0 ? (
 										`${offer.stock} шт.`
 									) : (
-										<span className="offers-table__out-of-stock text-body-secondary">
+										<span className="offers-table__out-of-stock">
 											Нет в наличии
 										</span>
 									)}
 								</td>
 
 								<td
-									className="offers-table__cell offers-table__cell--labeled text-nowrap"
+									className="offers-table__cell offers-table__cell--labeled offers-table__cell--date"
 									data-label="Отгрузка"
 								>
-									{offer.shipmentDate
-										? formatDate(offer.shipmentDate)
-										: "—"}
+									{offer.shipmentDate ? (
+										<time dateTime={offer.shipmentDate}>
+											{formatDate(offer.shipmentDate)}
+										</time>
+									) : (
+										"—"
+									)}
 								</td>
 							</tr>
 						))}
@@ -95,7 +111,7 @@ export function OffersList({ items }) {
 			</div>
 
 			{hiddenCount > 0 && (
-				<div className="offers__more d-flex align-items-center gap-3">
+				<div className="offers__more">
 					<button
 						className="offers__more-button btn btn-outline-primary"
 						type="button"
@@ -106,7 +122,7 @@ export function OffersList({ items }) {
 						Показать ещё
 					</button>
 
-					<span className="offers__counter text-body-secondary">
+					<span className="offers__counter">
 						Показано {visibleItems.length} из {items.length}
 					</span>
 				</div>

@@ -36,30 +36,33 @@ export function BrandList() {
 	}
 
 	return (
-		<section className="brand-list mb-5">
-			<h2 className="brand-list__title h5 mb-3">Производители</h2>
+		<section className="brand-list">
+			<h2 className="brand-list__title">Производители</h2>
 
-			<div className="brand-list__items d-flex flex-wrap gap-2">
+			<ul className="brand-list__items" role="list">
 				{brands.items.map((item) => (
-					<button
-						className={`brand-list__item btn btn-outline-primary text-start${item.brand === selectedBrand ? " active" : ""}`}
-						key={item.brand}
-						type="button"
-						aria-pressed={item.brand === selectedBrand}
-						onClick={() =>
-							dispatch(fetchOffers({ number, brand: item.brand }))
-						}
-					>
-						<span className="brand-list__brand d-block fw-semibold">
-							{item.brand}
-						</span>
+					<li className="brand-list__item" key={item.brand}>
+						<button
+							className={`brand-list__button btn btn-outline-primary${item.brand === selectedBrand ? " active" : ""}`}
+							type="button"
+							aria-pressed={item.brand === selectedBrand}
+							onClick={() =>
+								dispatch(
+									fetchOffers({ number, brand: item.brand }),
+								)
+							}
+						>
+							<span className="brand-list__brand">
+								{item.brand}
+							</span>
 
-						<span className="brand-list__name d-block small">
-							{item.name}
-						</span>
-					</button>
+							<span className="brand-list__name">
+								{item.name}
+							</span>
+						</button>
+					</li>
 				))}
-			</div>
+			</ul>
 		</section>
 	);
 }
